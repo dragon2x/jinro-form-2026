@@ -3,250 +3,473 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>2026 고교생을 위한 진로체험 프로그램 참여 여부 조사</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <title>2026 진로체험 프로그램 참여 여부 조사</title>
   <style>
-    body { background: #f5f6fa; }
-    .form-card {
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-      padding: 2rem;
-      margin-bottom: 1.5rem;
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+      background: #f5f5f7;
+      color: #1d1d1f;
+      -webkit-font-smoothing: antialiased;
     }
-    .form-header {
-      background: #1a3a6b;
-      color: #fff;
-      border-radius: 12px 12px 0 0;
-      padding: 2rem;
-      margin-bottom: 0;
-    }
-    .section-title {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: #1a3a6b;
-      border-left: 4px solid #1a3a6b;
-      padding-left: 0.75rem;
-      margin-bottom: 1.25rem;
-    }
-    .date-group {
-      background: #f8f9fa;
-      border-radius: 8px;
-      padding: 1rem 1.25rem;
-      margin-bottom: 1rem;
-    }
-    .date-group-title {
-      font-weight: 600;
-      color: #1a3a6b;
-      margin-bottom: 0.75rem;
-      font-size: 0.95rem;
-    }
-    .date-checks {
+
+    /* 헤더 */
+    .page-header {
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 0 24px;
+      height: 52px;
       display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem 1rem;
+      align-items: center;
     }
-    .date-checks .form-check {
-      min-width: 90px;
+    .page-header span {
+      font-size: 17px;
+      font-weight: 600;
+      color: #1d1d1f;
+      letter-spacing: -0.02em;
+    }
+
+    /* 히어로 섹션 */
+    .hero {
+      text-align: center;
+      padding: 72px 24px 48px;
+    }
+    .hero h1 {
+      font-size: clamp(28px, 5vw, 48px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      color: #1d1d1f;
+      margin-bottom: 16px;
+    }
+    .hero p {
+      font-size: 17px;
+      color: #6e6e73;
+      line-height: 1.6;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    /* 폼 컨테이너 */
+    .form-wrap {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 0 20px 80px;
+    }
+
+    /* 카드 */
+    .card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 36px 32px;
+      margin-bottom: 16px;
+    }
+
+    .card-title {
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #6e6e73;
+      margin-bottom: 24px;
+    }
+
+    /* 폼 필드 */
+    .field {
+      margin-bottom: 20px;
+    }
+    .field:last-child { margin-bottom: 0; }
+
+    .field label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: #6e6e73;
+      margin-bottom: 6px;
+    }
+    .field label .req {
+      color: #0071e3;
+      margin-left: 2px;
+    }
+
+    .field input[type="text"],
+    .field input[type="tel"] {
+      width: 100%;
+      height: 48px;
+      background: #f5f5f7;
+      border: 1.5px solid transparent;
+      border-radius: 12px;
+      padding: 0 16px;
+      font-size: 16px;
+      color: #1d1d1f;
+      font-family: inherit;
+      transition: border-color 0.15s, background 0.15s;
+      outline: none;
+    }
+    .field input:focus {
+      background: #fff;
+      border-color: #0071e3;
+    }
+    .field input::placeholder { color: #aeaeb2; }
+
+    /* 라디오 */
+    .radio-group {
+      display: flex;
+      gap: 12px;
+    }
+    .radio-option {
+      flex: 1;
+      position: relative;
+    }
+    .radio-option input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      width: 0; height: 0;
+    }
+    .radio-option label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 48px;
+      background: #f5f5f7;
+      border: 1.5px solid transparent;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 500;
+      color: #1d1d1f;
+      cursor: pointer;
+      transition: all 0.15s;
       margin: 0;
     }
-    .btn-submit {
-      background: #1a3a6b;
+    .radio-option input:checked + label {
+      background: #e8f0fe;
+      border-color: #0071e3;
+      color: #0071e3;
+    }
+
+    /* 날짜 섹션 */
+    .month-block {
+      margin-bottom: 28px;
+    }
+    .month-block:last-child { margin-bottom: 0; }
+
+    .month-label {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1d1d1f;
+      margin-bottom: 12px;
+    }
+
+    .date-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .date-chip {
+      position: relative;
+    }
+    .date-chip input[type="checkbox"] {
+      position: absolute;
+      opacity: 0;
+      width: 0; height: 0;
+    }
+    .date-chip label {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 14px;
+      height: 36px;
+      background: #f5f5f7;
+      border: 1.5px solid transparent;
+      border-radius: 100px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #1d1d1f;
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+      margin: 0;
+    }
+    .date-chip input:checked + label {
+      background: #0071e3;
+      border-color: #0071e3;
       color: #fff;
-      padding: 0.75rem 2.5rem;
-      font-size: 1.05rem;
-      border-radius: 8px;
-      border: none;
     }
-    .btn-submit:hover { background: #15305a; color: #fff; }
-    #successMsg {
-      display: none;
-      background: #d1e7dd;
-      border: 1px solid #a3cfbb;
-      color: #0f5132;
-      border-radius: 10px;
-      padding: 2rem;
+    .date-chip label:hover {
+      border-color: #0071e3;
+    }
+
+    /* 제출 버튼 */
+    .submit-wrap {
       text-align: center;
-      font-size: 1.1rem;
+      padding-top: 8px;
     }
-    .required-star { color: #dc3545; }
+    .btn-submit {
+      display: inline-block;
+      background: #0071e3;
+      color: #fff;
+      border: none;
+      border-radius: 100px;
+      padding: 0 40px;
+      height: 52px;
+      font-size: 17px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+      letter-spacing: -0.01em;
+    }
+    .btn-submit:hover { background: #0077ed; }
+    .btn-submit:active { transform: scale(0.98); }
+    .btn-submit:disabled {
+      background: #aeaeb2;
+      cursor: not-allowed;
+      transform: none;
+    }
+    .submit-note {
+      margin-top: 14px;
+      font-size: 13px;
+      color: #aeaeb2;
+    }
+
+    /* 에러 메시지 */
+    .error-msg {
+      display: none;
+      background: #fff2f2;
+      border: 1px solid #ffb3b3;
+      color: #c00;
+      border-radius: 12px;
+      padding: 14px 18px;
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+
+    /* 완료 화면 */
+    .success-screen {
+      display: none;
+      text-align: center;
+      padding: 80px 24px;
+    }
+    .success-icon {
+      width: 72px;
+      height: 72px;
+      background: #e8f8f0;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      font-size: 36px;
+    }
+    .success-screen h2 {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+    .success-screen p {
+      font-size: 17px;
+      color: #6e6e73;
+    }
+
+    /* 구분선 */
+    .divider {
+      height: 1px;
+      background: #f5f5f7;
+      margin: 24px 0;
+    }
+
+    @media (max-width: 480px) {
+      .hero { padding: 48px 20px 32px; }
+      .card { padding: 28px 20px; border-radius: 16px; }
+      .btn-submit { width: 100%; }
+    }
   </style>
 </head>
 <body>
-<div class="container py-4" style="max-width:780px;">
 
-  <!-- 헤더 -->
-  <div class="form-header">
-    <h1 class="fs-4 fw-bold mb-2">2026 고교생을 위한 진로체험 프로그램<br>참여 여부 조사</h1>
-    <p class="mb-0" style="font-size:0.92rem; opacity:0.9;">
-      ※ 고교 신청 가능 요일은 화~목이며, 한 주당 최대 2개 고교 진행 예정입니다.<br>
-      참여 교원이 다수일 경우 교원별 1부씩 제출 바랍니다.
-    </p>
+  <!-- 상단 내비 -->
+  <header class="page-header">
+    <span>진로체험 프로그램</span>
+  </header>
+
+  <!-- 히어로 -->
+  <div class="hero">
+    <h1>2026 진로체험 프로그램<br>참여 여부 조사</h1>
+    <p>고교 신청 가능 요일은 화·수·목이며,<br>한 주당 최대 2개 고교 진행 예정입니다.</p>
   </div>
 
-  <!-- 완료 메시지 -->
-  <div id="successMsg" class="my-3">
-    <div class="mb-2" style="font-size:2rem;">✅</div>
-    <strong>제출이 완료되었습니다!</strong><br>
-    참여 여부 조사에 응해주셔서 감사합니다.
+  <!-- 완료 화면 -->
+  <div class="success-screen" id="successMsg">
+    <div class="success-icon">✓</div>
+    <h2>제출 완료</h2>
+    <p>참여 여부 조사에<br>응해주셔서 감사합니다.</p>
   </div>
 
-  <form id="mainForm" novalidate>
+  <!-- 폼 -->
+  <div class="form-wrap" id="formWrap">
 
-    <!-- 섹션 1: 기본 정보 -->
-    <div class="form-card">
-      <div class="section-title">섹션 1. 기본 정보</div>
+    <form id="mainForm" novalidate>
 
-      <div class="mb-3">
-        <label class="form-label fw-semibold">단과대학 <span class="required-star">*</span></label>
-        <input type="text" class="form-control" name="college" placeholder="예) 공과대학" required />
-      </div>
+      <!-- 섹션 1 -->
+      <div class="card">
+        <div class="card-title">기본 정보</div>
 
-      <div class="mb-3">
-        <label class="form-label fw-semibold">트랙 <span class="required-star">*</span></label>
-        <input type="text" class="form-control" name="track" placeholder="예) 기계공학트랙" required />
-      </div>
+        <div class="field">
+          <label>단과대학 <span class="req">*</span></label>
+          <input type="text" name="college" placeholder="예) 공과대학" />
+        </div>
 
-      <div class="mb-3">
-        <label class="form-label fw-semibold">참여 교원명 <span class="required-star">*</span></label>
-        <input type="text" class="form-control" name="professorName" placeholder="성명" required />
-      </div>
+        <div class="field">
+          <label>트랙 <span class="req">*</span></label>
+          <input type="text" name="track" placeholder="예) 기계공학트랙" />
+        </div>
 
-      <div class="mb-3">
-        <label class="form-label fw-semibold">교원 연락처 <span class="required-star">*</span></label>
-        <input type="tel" class="form-control" name="professorPhone" placeholder="예) 010-0000-0000" required />
-      </div>
+        <div class="divider"></div>
 
-      <div class="mb-3">
-        <label class="form-label fw-semibold">담당 조교명</label>
-        <input type="text" class="form-control" name="assistantName" placeholder="성명 (없을 경우 공란)" />
-      </div>
+        <div class="field">
+          <label>참여 교원명 <span class="req">*</span></label>
+          <input type="text" name="professorName" placeholder="성명" />
+        </div>
 
-      <div class="mb-3">
-        <label class="form-label fw-semibold">조교 연락처</label>
-        <input type="tel" class="form-control" name="assistantPhone" placeholder="예) 010-0000-0000" />
-      </div>
+        <div class="field">
+          <label>교원 연락처 <span class="req">*</span></label>
+          <input type="tel" name="professorPhone" placeholder="010-0000-0000" />
+        </div>
 
-      <div class="mb-0">
-        <label class="form-label fw-semibold">타 캠퍼스 이동 여부 <span class="required-star">*</span></label>
-        <div class="d-flex gap-4 mt-1">
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="otherCampus" id="campusO" value="O" required />
-            <label class="form-check-label" for="campusO">O (이동 있음)</label>
+        <div class="divider"></div>
+
+        <div class="field">
+          <label>담당 조교명</label>
+          <input type="text" name="assistantName" placeholder="없을 경우 공란" />
+        </div>
+
+        <div class="field">
+          <label>조교 연락처</label>
+          <input type="tel" name="assistantPhone" placeholder="010-0000-0000" />
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="field">
+          <label>타 캠퍼스 이동 여부 <span class="req">*</span></label>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" name="otherCampus" id="campusO" value="O" />
+              <label for="campusO">이동 있음</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="otherCampus" id="campusX" value="X" />
+              <label for="campusX">이동 없음</label>
+            </div>
           </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="otherCampus" id="campusX" value="X" />
-            <label class="form-check-label" for="campusX">X (이동 없음)</label>
+        </div>
+      </div>
+
+      <!-- 섹션 2 -->
+      <div class="card">
+        <div class="card-title">참여 가능 날짜</div>
+        <p style="font-size:14px;color:#6e6e73;margin-bottom:24px;">참여 가능한 날짜를 모두 선택해주세요.</p>
+
+        <div class="month-block">
+          <div class="month-label">5월</div>
+          <div class="date-grid">
+            <div class="date-chip"><input type="checkbox" name="dates_may" value="5/5(화)" id="d_505"><label for="d_505">5/5 화</label></div>
+            <div class="date-chip"><input type="checkbox" name="dates_may" value="5/6(수)" id="d_506"><label for="d_506">5/6 수</label></div>
+            <div class="date-chip"><input type="checkbox" name="dates_may" value="5/7(목)" id="d_507"><label for="d_507">5/7 목</label></div>
+            <div class="date-chip"><input type="checkbox" name="dates_may" value="5/12(화)" id="d_512"><label for="d_512">5/12 화</label></div>
+            <div class="date-chip"><input type="checkbox" name="dates_may" value="5/13(수)" id="d_513"><label for="d_513">5/13 수</label></div>
+            <div class="date-chip"><input type="checkbox" name="dates_may" value="5/14(목)" id="d_514"><label for="d_514">5/14 목</label></div>
+            <div class="date-chip"><input type="checkbox" name="dates_may" value="5/19(화)" id="d_519"><label for="d_519">5/19 화</label></div>
+            <div class="date-chip"><input type="checkbox" name="dates_may" value="5/20(수)" id="d_520"><label for="d_520">5/20 수</label></div>
+            <div class="date-chip"><input type="checkbox" name="dates_may" value="5/21(목)" id="d_521"><label for="d_521">5/21 목</label></div>
+            <div class="date-chip"><input type="checkbox" name="dates_may" value="5/26(화)" id="d_526"><label for="d_526">5/26 화</label></div>
+            <div class="date-chip"><input type="checkbox" name="dates_may" value="5/27(수)" id="d_527"><label for="d_527">5/27 수</label></div>
+            <div class="date-chip"><input type="checkbox" name="dates_may" value="5/28(목)" id="d_528"><label for="d_528">5/28 목</label></div>
           </div>
         </div>
-        <div class="invalid-feedback" id="campusFeedback" style="display:none;">타 캠퍼스 이동 여부를 선택해주세요.</div>
-      </div>
-    </div>
 
+        <div class="divider"></div>
 
-    <!-- 섹션 2: 참여 가능 날짜 -->
-    <div class="form-card">
-      <div class="section-title">섹션 2. 참여 가능 날짜 선택</div>
-      <p class="text-muted small mb-3">참여 가능한 날짜를 모두 선택해주세요. (복수 선택 가능)</p>
+        <div class="month-block">
+          <div class="month-label">6월</div>
+          <div class="date-grid">
+            <div class="date-chip"><input type="checkbox" name="dates_jun" value="6/2(화)" id="d_602"><label for="d_602">6/2 화</label></div>
+            <div class="date-chip"><input type="checkbox" name="dates_jun" value="6/3(수)" id="d_603"><label for="d_603">6/3 수</label></div>
+            <div class="date-chip"><input type="checkbox" name="dates_jun" value="6/4(목)" id="d_604"><label for="d_604">6/4 목</label></div>
+            <div class="date-chip"><input type="checkbox" name="dates_jun" value="6/9(화)" id="d_609"><label for="d_609">6/9 화</label></div>
+            <div class="date-chip"><input type="checkbox" name="dates_jun" value="6/10(수)" id="d_610"><label for="d_610">6/10 수</label></div>
+            <div class="date-chip"><input type="checkbox" name="dates_jun" value="6/11(목)" id="d_611"><label for="d_611">6/11 목</label></div>
+            <div class="date-chip"><input type="checkbox" name="dates_jun" value="6/17(화)" id="d_617"><label for="d_617">6/17 화</label></div>
+            <div class="date-chip"><input type="checkbox" name="dates_jun" value="6/18(수)" id="d_618"><label for="d_618">6/18 수</label></div>
+          </div>
+        </div>
 
-      <!-- 5월 -->
-      <div class="date-group">
-        <div class="date-group-title">📅 5월</div>
-        <div class="date-checks">
-          <div class="form-check"><input class="form-check-input" type="checkbox" name="dates_may" value="5/5(화)" id="d_505"><label class="form-check-label" for="d_505">5/5 화</label></div>
-          <div class="form-check"><input class="form-check-input" type="checkbox" name="dates_may" value="5/6(수)" id="d_506"><label class="form-check-label" for="d_506">5/6 수</label></div>
-          <div class="form-check"><input class="form-check-input" type="checkbox" name="dates_may" value="5/7(목)" id="d_507"><label class="form-check-label" for="d_507">5/7 목</label></div>
-          <div class="form-check"><input class="form-check-input" type="checkbox" name="dates_may" value="5/12(화)" id="d_512"><label class="form-check-label" for="d_512">5/12 화</label></div>
-          <div class="form-check"><input class="form-check-input" type="checkbox" name="dates_may" value="5/13(수)" id="d_513"><label class="form-check-label" for="d_513">5/13 수</label></div>
-          <div class="form-check"><input class="form-check-input" type="checkbox" name="dates_may" value="5/14(목)" id="d_514"><label class="form-check-label" for="d_514">5/14 목</label></div>
-          <div class="form-check"><input class="form-check-input" type="checkbox" name="dates_may" value="5/19(화)" id="d_519"><label class="form-check-label" for="d_519">5/19 화</label></div>
-          <div class="form-check"><input class="form-check-input" type="checkbox" name="dates_may" value="5/20(수)" id="d_520"><label class="form-check-label" for="d_520">5/20 수</label></div>
-          <div class="form-check"><input class="form-check-input" type="checkbox" name="dates_may" value="5/21(목)" id="d_521"><label class="form-check-label" for="d_521">5/21 목</label></div>
-          <div class="form-check"><input class="form-check-input" type="checkbox" name="dates_may" value="5/26(화)" id="d_526"><label class="form-check-label" for="d_526">5/26 화</label></div>
-          <div class="form-check"><input class="form-check-input" type="checkbox" name="dates_may" value="5/27(수)" id="d_527"><label class="form-check-label" for="d_527">5/27 수</label></div>
-          <div class="form-check"><input class="form-check-input" type="checkbox" name="dates_may" value="5/28(목)" id="d_528"><label class="form-check-label" for="d_528">5/28 목</label></div>
+        <div class="divider"></div>
+
+        <div class="month-block">
+          <div class="month-label">7월</div>
+          <div class="date-grid">
+            <div class="date-chip"><input type="checkbox" name="dates_jul" value="7/1(화)" id="d_701"><label for="d_701">7/1 화</label></div>
+            <div class="date-chip"><input type="checkbox" name="dates_jul" value="7/2(수)" id="d_702"><label for="d_702">7/2 수</label></div>
+            <div class="date-chip"><input type="checkbox" name="dates_jul" value="7/3(목)" id="d_703"><label for="d_703">7/3 목</label></div>
+            <div class="date-chip"><input type="checkbox" name="dates_jul" value="7/8(화)" id="d_708"><label for="d_708">7/8 화</label></div>
+            <div class="date-chip"><input type="checkbox" name="dates_jul" value="7/9(수)" id="d_709"><label for="d_709">7/9 수</label></div>
+            <div class="date-chip"><input type="checkbox" name="dates_jul" value="7/10(목)" id="d_710"><label for="d_710">7/10 목</label></div>
+            <div class="date-chip"><input type="checkbox" name="dates_jul" value="7/15(화)" id="d_715"><label for="d_715">7/15 화</label></div>
+            <div class="date-chip"><input type="checkbox" name="dates_jul" value="7/16(수)" id="d_716"><label for="d_716">7/16 수</label></div>
+            <div class="date-chip"><input type="checkbox" name="dates_jul" value="7/17(목)" id="d_717"><label for="d_717">7/17 목</label></div>
+            <div class="date-chip"><input type="checkbox" name="dates_jul" value="7/22(화)" id="d_722"><label for="d_722">7/22 화</label></div>
+            <div class="date-chip"><input type="checkbox" name="dates_jul" value="7/23(수)" id="d_723"><label for="d_723">7/23 수</label></div>
+            <div class="date-chip"><input type="checkbox" name="dates_jul" value="7/24(목)" id="d_724"><label for="d_724">7/24 목</label></div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="month-block">
+          <div class="month-label">8월</div>
+          <div class="date-grid">
+            <div class="date-chip"><input type="checkbox" name="dates_aug" value="8/4(화)" id="d_804"><label for="d_804">8/4 화</label></div>
+            <div class="date-chip"><input type="checkbox" name="dates_aug" value="8/5(수)" id="d_805"><label for="d_805">8/5 수</label></div>
+            <div class="date-chip"><input type="checkbox" name="dates_aug" value="8/6(목)" id="d_806"><label for="d_806">8/6 목</label></div>
+            <div class="date-chip"><input type="checkbox" name="dates_aug" value="8/11(화)" id="d_811"><label for="d_811">8/11 화</label></div>
+            <div class="date-chip"><input type="checkbox" name="dates_aug" value="8/12(수)" id="d_812"><label for="d_812">8/12 수</label></div>
+            <div class="date-chip"><input type="checkbox" name="dates_aug" value="8/13(목)" id="d_813"><label for="d_813">8/13 목</label></div>
+          </div>
         </div>
       </div>
 
-      <!-- 6월 -->
-      <div class="date-group">
-        <div class="date-group-title">📅 6월</div>
-        <div class="date-checks">
-          <div class="form-check"><input class="form-check-input" type="checkbox" name="dates_jun" value="6/2(화)" id="d_602"><label class="form-check-label" for="d_602">6/2 화</label></div>
-          <div class="form-check"><input class="form-check-input" type="checkbox" name="dates_jun" value="6/3(수)" id="d_603"><label class="form-check-label" for="d_603">6/3 수</label></div>
-          <div class="form-check"><input class="form-check-input" type="checkbox" name="dates_jun" value="6/4(목)" id="d_604"><label class="form-check-label" for="d_604">6/4 목</label></div>
-          <div class="form-check"><input class="form-check-input" type="checkbox" name="dates_jun" value="6/9(화)" id="d_609"><label class="form-check-label" for="d_609">6/9 화</label></div>
-          <div class="form-check"><input class="form-check-input" type="checkbox" name="dates_jun" value="6/10(수)" id="d_610"><label class="form-check-label" for="d_610">6/10 수</label></div>
-          <div class="form-check"><input class="form-check-input" type="checkbox" name="dates_jun" value="6/11(목)" id="d_611"><label class="form-check-label" for="d_611">6/11 목</label></div>
-          <div class="form-check"><input class="form-check-input" type="checkbox" name="dates_jun" value="6/17(화)" id="d_617"><label class="form-check-label" for="d_617">6/17 화</label></div>
-          <div class="form-check"><input class="form-check-input" type="checkbox" name="dates_jun" value="6/18(수)" id="d_618"><label class="form-check-label" for="d_618">6/18 수</label></div>
-        </div>
+      <!-- 제출 -->
+      <div class="submit-wrap">
+        <div class="error-msg" id="errorMsg"></div>
+        <button type="submit" class="btn-submit" id="submitBtn">제출하기</button>
+        <p class="submit-note">제출 후에는 수정이 불가합니다.</p>
       </div>
 
-      <!-- 7월 -->
-      <div class="date-group">
-        <div class="date-group-title">📅 7월</div>
-        <div class="date-checks">
-          <div class="form-check"><input class="form-check-input" type="checkbox" name="dates_jul" value="7/1(화)" id="d_701"><label class="form-check-label" for="d_701">7/1 화</label></div>
-          <div class="form-check"><input class="form-check-input" type="checkbox" name="dates_jul" value="7/2(수)" id="d_702"><label class="form-check-label" for="d_702">7/2 수</label></div>
-          <div class="form-check"><input class="form-check-input" type="checkbox" name="dates_jul" value="7/3(목)" id="d_703"><label class="form-check-label" for="d_703">7/3 목</label></div>
-          <div class="form-check"><input class="form-check-input" type="checkbox" name="dates_jul" value="7/8(화)" id="d_708"><label class="form-check-label" for="d_708">7/8 화</label></div>
-          <div class="form-check"><input class="form-check-input" type="checkbox" name="dates_jul" value="7/9(수)" id="d_709"><label class="form-check-label" for="d_709">7/9 수</label></div>
-          <div class="form-check"><input class="form-check-input" type="checkbox" name="dates_jul" value="7/10(목)" id="d_710"><label class="form-check-label" for="d_710">7/10 목</label></div>
-          <div class="form-check"><input class="form-check-input" type="checkbox" name="dates_jul" value="7/15(화)" id="d_715"><label class="form-check-label" for="d_715">7/15 화</label></div>
-          <div class="form-check"><input class="form-check-input" type="checkbox" name="dates_jul" value="7/16(수)" id="d_716"><label class="form-check-label" for="d_716">7/16 수</label></div>
-          <div class="form-check"><input class="form-check-input" type="checkbox" name="dates_jul" value="7/17(목)" id="d_717"><label class="form-check-label" for="d_717">7/17 목</label></div>
-          <div class="form-check"><input class="form-check-input" type="checkbox" name="dates_jul" value="7/22(화)" id="d_722"><label class="form-check-label" for="d_722">7/22 화</label></div>
-          <div class="form-check"><input class="form-check-input" type="checkbox" name="dates_jul" value="7/23(수)" id="d_723"><label class="form-check-label" for="d_723">7/23 수</label></div>
-          <div class="form-check"><input class="form-check-input" type="checkbox" name="dates_jul" value="7/24(목)" id="d_724"><label class="form-check-label" for="d_724">7/24 목</label></div>
-        </div>
-      </div>
-
-      <!-- 8월 -->
-      <div class="date-group">
-        <div class="date-group-title">📅 8월</div>
-        <div class="date-checks">
-          <div class="form-check"><input class="form-check-input" type="checkbox" name="dates_aug" value="8/4(화)" id="d_804"><label class="form-check-label" for="d_804">8/4 화</label></div>
-          <div class="form-check"><input class="form-check-input" type="checkbox" name="dates_aug" value="8/5(수)" id="d_805"><label class="form-check-label" for="d_805">8/5 수</label></div>
-          <div class="form-check"><input class="form-check-input" type="checkbox" name="dates_aug" value="8/6(목)" id="d_806"><label class="form-check-label" for="d_806">8/6 목</label></div>
-          <div class="form-check"><input class="form-check-input" type="checkbox" name="dates_aug" value="8/11(화)" id="d_811"><label class="form-check-label" for="d_811">8/11 화</label></div>
-          <div class="form-check"><input class="form-check-input" type="checkbox" name="dates_aug" value="8/12(수)" id="d_812"><label class="form-check-label" for="d_812">8/12 수</label></div>
-          <div class="form-check"><input class="form-check-input" type="checkbox" name="dates_aug" value="8/13(목)" id="d_813"><label class="form-check-label" for="d_813">8/13 목</label></div>
-        </div>
-      </div>
-
-    </div><!-- /섹션 2 -->
-
-
-    <!-- 제출 버튼 -->
-    <div class="text-center mb-4">
-      <div id="errorMsg" class="alert alert-danger mb-3" style="display:none;"></div>
-      <button type="submit" class="btn btn-submit" id="submitBtn">
-        제출하기
-      </button>
-      <p class="text-muted small mt-2">※ 제출 후에는 수정이 불가하니 확인 후 제출해주세요.</p>
-    </div>
-
-  </form><!-- /form -->
-
-</div><!-- /container -->
+    </form>
+  </div>
 
 <script>
-  // ====================================================
-  // ⚠️ 아래 URL을 Apps Script 배포 URL로 교체하세요
-  // ====================================================
   const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwgEiT0MixDzATQ_gpFETDyCoCgqGWDKdwNJJW2_e4F5KAbuMBqOyK1eo-8WcYlVC189w/exec';
 
   const form = document.getElementById('mainForm');
   const submitBtn = document.getElementById('submitBtn');
   const errorMsg = document.getElementById('errorMsg');
   const successMsg = document.getElementById('successMsg');
+  const formWrap = document.getElementById('formWrap');
 
   form.addEventListener('submit', async function (e) {
     e.preventDefault();
     errorMsg.style.display = 'none';
 
-    // 필수 항목 검증
     const required = [
       { name: 'college', label: '단과대학' },
       { name: 'track', label: '트랙' },
@@ -257,20 +480,18 @@
     for (const field of required) {
       const el = form.elements[field.name];
       if (!el || !el.value.trim()) {
-        showError(`[${field.label}] 항목을 입력해주세요.`);
+        showError(`'${field.label}' 항목을 입력해주세요.`);
         el && el.focus();
         return;
       }
     }
 
-    // 타 캠퍼스 이동 여부 검증
     const campusVal = form.querySelector('input[name="otherCampus"]:checked');
     if (!campusVal) {
       showError('타 캠퍼스 이동 여부를 선택해주세요.');
       return;
     }
 
-    // 체크박스 수집
     const getChecked = (name) =>
       [...form.querySelectorAll(`input[name="${name}"]:checked`)]
         .map(cb => cb.value).join(', ');
@@ -291,7 +512,7 @@
     };
 
     submitBtn.disabled = true;
-    submitBtn.textContent = '제출 중...';
+    submitBtn.textContent = '제출 중…';
 
     try {
       const res = await fetch(APPS_SCRIPT_URL, {
@@ -300,7 +521,7 @@
       });
       const result = await res.json();
       if (result.status === 'ok') {
-        form.style.display = 'none';
+        formWrap.style.display = 'none';
         successMsg.style.display = 'block';
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
@@ -319,6 +540,5 @@
     errorMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 </script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
