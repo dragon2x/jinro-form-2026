@@ -324,36 +324,17 @@
 
         <div class="field">
           <label>단과대학 <span class="req">*</span></label>
-          <input type="text" name="college" placeholder="예) 공과대학" />
+          <input type="text" name="college" placeholder="예) 미래엔지니어링융합대학" />
+        </div>
+
+        <div class="field">
+          <label>학부 <span class="req">*</span></label>
+          <input type="text" name="department" placeholder="예) 미래모빌리티공학부" />
         </div>
 
         <div class="field">
           <label>트랙 <span class="req">*</span></label>
           <input type="text" name="track" placeholder="예) 기계공학트랙" />
-        </div>
-
-        <div class="divider"></div>
-
-        <div class="field">
-          <label>참여 교원명 <span class="req">*</span></label>
-          <input type="text" name="professorName" placeholder="성명" />
-        </div>
-
-        <div class="field">
-          <label>교원 연락처 <span class="req">*</span></label>
-          <input type="tel" name="professorPhone" placeholder="010-0000-0000" />
-        </div>
-
-        <div class="divider"></div>
-
-        <div class="field">
-          <label>담당 조교명</label>
-          <input type="text" name="assistantName" placeholder="없을 경우 공란" />
-        </div>
-
-        <div class="field">
-          <label>조교 연락처</label>
-          <input type="tel" name="assistantPhone" placeholder="010-0000-0000" />
         </div>
 
         <div class="divider"></div>
@@ -472,9 +453,8 @@
 
     const required = [
       { name: 'college', label: '단과대학' },
+      { name: 'department', label: '학부' },
       { name: 'track', label: '트랙' },
-      { name: 'professorName', label: '참여 교원명' },
-      { name: 'professorPhone', label: '교원 연락처' },
     ];
 
     for (const field of required) {
@@ -499,11 +479,8 @@
     const data = {
       timestamp: new Date().toLocaleString('ko-KR'),
       college: form.elements['college'].value.trim(),
+      department: form.elements['department'].value.trim(),
       track: form.elements['track'].value.trim(),
-      professorName: form.elements['professorName'].value.trim(),
-      professorPhone: form.elements['professorPhone'].value.trim(),
-      assistantName: form.elements['assistantName'].value.trim(),
-      assistantPhone: form.elements['assistantPhone'].value.trim(),
       otherCampus: campusVal.value,
       dates_may: getChecked('dates_may'),
       dates_jun: getChecked('dates_jun'),
